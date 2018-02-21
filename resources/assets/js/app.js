@@ -8,6 +8,10 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,7 +20,31 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+let Myheader = require('./components/Myheader.vue')
+let Myfooter = require('./components/Footer.vue')
+//定義組件
+let Home = require('./components/Home.vue')
+let About = require('./components/About.vue')
+//定義路由
 
+const routes = [
+    { path: '/',name:'dict'},
+    { path: '/home',name:'home',component: Home },
+    { path: '/about',name:'about',component: About }
+  ]
+
+  //傳入相對應的routes
+  const router = new VueRouter({
+      base: './phonebook/phone',
+      mode: 'history',
+    routes // （缩写）相当于 routes: routes
+  })
+//傳入router的參數
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    router,
+    //設定局部組件
+    components:{Myheader,Myfooter,Home,About},
+
+
 });
